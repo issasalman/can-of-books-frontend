@@ -11,8 +11,13 @@ export default class LoginButton extends Component {
   }
 
   handelDisplayAddModal = () => {
-    this.setState({ showAddModal: !this.state.showAddModal });
+    this.setState({ showAddModal: true });
   };
+
+  handleClose = () => {
+    this.setState({ showAddModal: false });
+  };
+ 
 
   render() {
     return (
@@ -24,7 +29,7 @@ export default class LoginButton extends Component {
         >
           Login
         </Button>
-        <LoginForm handelDisplayAddModal={this.handelDisplayAddModal} showAddModal={this.state.showAddModal} />
+        <LoginForm handelDisplayAddModal={this.handelDisplayAddModal} showAddModal={this.state.showAddModal} handleClose={this.handleClose} />
       </>
     );
   }

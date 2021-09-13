@@ -7,13 +7,10 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       BooksData: [],
-      showAddModal: false,
+     
     };
   }
 
-  handelDisplayAddModal = () => {
-    this.setState({ showAddModal: !this.state.showAddModal });
-  }
 
   componentDidMount = () => {
     axios
@@ -24,6 +21,8 @@ class BestBooks extends React.Component {
       })
       .catch((error) => alert(error.message));
   };
+
+
 
   render() {
     return (
