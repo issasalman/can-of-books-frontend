@@ -6,20 +6,16 @@ export default class LoginButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAddModal: false,
+      showFormModal: false,
     };
   }
-
   handelDisplayAddModal = () => {
-    this.setState({ showAddModal: true });
+    this.setState({ showFormModal: true });
   };
-
   handleClose = () => {
-    this.setState({ showAddModal: false });
+    this.setState({ showFormModal: false });
   };
- 
-
-  render() {
+   render() {
     return (
       <>
         <Button
@@ -29,7 +25,7 @@ export default class LoginButton extends Component {
         >
           Login
         </Button>
-        <LoginForm handelDisplayAddModal={this.handelDisplayAddModal} showAddModal={this.state.showAddModal} handleClose={this.handleClose} />
+        <LoginForm handelDisplayAddModal={this.handelDisplayAddModal} showFormModal={this.state.showFormModal} handleClose={this.handleClose} />
       </>
     );
   }
