@@ -23,12 +23,11 @@ console.log(Email)
        
       });
     }
-
-   
+  
   render() {
     return (
       <Modal
-        show={this.props.showAddModal}
+        show={this.props.showFormModal}
         onHide={this.props.handleClose}
       >
         <Modal.Header closeButton>
