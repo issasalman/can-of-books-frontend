@@ -2,6 +2,7 @@ import { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import UpdateBookModal from "./UpdateBookModal";
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,8 @@ console.log(Email)
   
   render() {
     return (
+      <>
+    
       <Modal
         show={this.props.showFormModal}
         onHide={this.props.handleClose}
@@ -47,6 +50,7 @@ console.log(Email)
           </Form>
         </Modal.Body>
       </Modal>
+      </>
     );
   }
 }

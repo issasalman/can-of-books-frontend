@@ -7,7 +7,7 @@ export class AddBook extends Component {
 
   render() {
     return (
-      <Modal show={this.props.show} onHide={this.props.handelDisplayAddModal}>
+      <Modal show={this.props.showAddModal} onHide={this.props.handelDisplayAddModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add a Book</Modal.Title>
         </Modal.Header>
@@ -17,7 +17,7 @@ export class AddBook extends Component {
               <Form.Label>Book Title</Form.Label>
               <Form.Control
                 type="text"
-                name="bookTitle"
+                name="title"
                 placeholder="Enter Book Title"
               />
             </Form.Group>
@@ -25,7 +25,7 @@ export class AddBook extends Component {
               <Form.Label>Book Title</Form.Label>
               <Form.Control
                 type="text"
-                name="bookDescription"
+                name="description"
                 placeholder="Enter Cat Description"
               />
             </Form.Group>

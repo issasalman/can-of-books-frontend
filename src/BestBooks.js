@@ -4,12 +4,15 @@ import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import BookFormModal from "./BookFormModal";
+import UpdateBookModal from "./UpdateBookModal";
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       BooksData: [],
       showAddModal: false,
+      showUpdateModal: false,
+      selectedBook: {},
     };
   }
 
@@ -17,22 +20,56 @@ class BestBooks extends React.Component {
     e.preventDefault();
 
     const reqBody = {
-      title: e.target.bookTitle.value,
-      description: e.target.bookDescription.value,
+      title: e.target.title.value,
+      description: e.target.description.value,
       status: e.target.status.value,
       email: e.target.email.value,
     };
-   
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/books`, reqBody)
+      .post(
+        `${process.env.REACT_APP_API_URL}/books`,
+        reqBody
+      )
       .then((createdCatObject) => {
-        this.state.BooksData.push(createdCatObject.data); // push the new data into the state of the catsData
-        this.setState({ BooksData: this.state.BooksData }); // update the data using setState to invoke the re-render
-        this.handelDisplayAddModal(); // close the modal after we are done!
+        this.state.BooksData.push(createdCatObject.data); 
+        this.setState({ BooksData: this.state.BooksData }); 
+        this.handelDisplayAddModal(); 
       })
       .catch(() => alert("Something went wrong!"));
   };
+
+  handelUpdateModal = (e) => {
+    e.preventDefault();
+
+    const reqBody = {
+      title: e.target.title.value,
+      description: e.target.description.value,
+      status: e.target.status.value,
+      email: e.target.email.value,
+    };
+    console.log(reqBody);
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/books/${this.state.selectedBook._id}`, reqBody)
+      .then((updatedBooks) => {
+        const updatedBooksArr = this.state.BooksData.map((book) => {
+          if (book._id === this.state.selectedBook._id) {
+            book = updatedBooks.data;
+
+            return book;
+          }
+          return book;
+        });
+        this.setState({
+          BooksData: updatedBooksArr,
+          selectedBook: {},
+        });
+    
+      this.handelDisplayUpdateModal();
+   
+    }).catch(() => alert("Something went wrong!"));
+  }
+
 
   handelDeleteBook = (book_id) => {
     axios
@@ -42,7 +79,7 @@ class BestBooks extends React.Component {
           const newBooks = this.state.BooksData.filter(
             (book) => book._id !== book_id
           );
-        
+
           this.setState({ catsData: newBooks });
         }
         window.location.reload();
@@ -52,6 +89,12 @@ class BestBooks extends React.Component {
 
   handelDisplayAddModal = () => {
     this.setState({ showAddModal: !this.state.showAddModal });
+  };
+  handelDisplayUpdateModal = (book) => {
+    this.setState({
+      showUpdateModal: !this.state.showUpdateModal,
+      selectedBook: book,
+    });
   };
 
   componentDidMount = () => {
@@ -67,15 +110,26 @@ class BestBooks extends React.Component {
   render() {
     return (
       <div>
-        <div style={{background : "black" ,padding:"20px"}} >
-        <Button onClick={this.handelDisplayAddModal}>Add Book</Button>
+        <div style={{ background: "black", padding: "20px" }}>
+          <Button onClick={this.handelDisplayAddModal}>Add Book</Button>
         </div>
         {this.state.showAddModal && (
           <>
             <BookFormModal
-              show={this.state.showAddModal}
+              showAddModal={this.state.showAddModal}
               handelAddModal={this.handelAddModal}
               handelDisplayAddModal={this.handelDisplayAddModal}
+            />
+          </>
+        )}
+        {this.state.showUpdateModal && (
+          <>
+            <UpdateBookModal
+              handelUpdateModal={this.handelUpdateModal}
+              handelDisplayUpdateModal={this.handelDisplayUpdateModal}
+              showUpdateModal={this.state.showUpdateModal}
+              selectedBook={this.state.selectedBook}
+             
             />
           </>
         )}
@@ -101,6 +155,12 @@ class BestBooks extends React.Component {
                         onClick={() => this.handelDeleteBook(element._id)}
                       >
                         Delete Book
+                      </Button>
+                      <Button
+                        variant="dark"
+                        onClick={() =>this.handelDisplayUpdateModal(element)}
+                      >
+                        Update Book
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
