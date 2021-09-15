@@ -64,7 +64,7 @@ class BestBooks extends React.Component {
           BooksData: updatedBooksArr,
           selectedBook: {},
         });
-    
+        console.log('updatedBooksArr',updatedBooksArr)
       this.handelDisplayUpdateModal();
    
     }).catch(() => alert("Something went wrong!"));
@@ -80,7 +80,7 @@ class BestBooks extends React.Component {
             (book) => book._id !== book_id
           );
 
-          this.setState({ catsData: newBooks });
+          this.setState({ BooksData: newBooks });
         }
         window.location.reload();
       })

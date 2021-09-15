@@ -2,7 +2,7 @@ import { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import UpdateBookModal from "./UpdateBookModal";
+// import UpdateBookModal from "./UpdateBookModal";
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -10,8 +10,6 @@ class LoginForm extends Component {
       email:'',
     };
   }
-
-
   addNewEmail = (e) => {
     e.preventDefault();
 
@@ -24,12 +22,10 @@ console.log(Email)
        
       });
     }
-  
-  render() {
+        render() {
     return (
       <>
-    
-      <Modal
+          <Modal
         show={this.props.showFormModal}
         onHide={this.props.handleClose}
       >

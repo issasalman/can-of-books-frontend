@@ -6,6 +6,8 @@ import NavLink from 'react-bootstrap/NavLink';
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
+// import Login from "./Login";
+
 class Header extends React.Component {
   render() {
     return (
@@ -16,6 +18,7 @@ class Header extends React.Component {
           <Navbar.Brand href="#home"  style={{color: "red" , paddingLeft: "37%"} }> 📚  Books List 📚</Navbar.Brand>
           <LoginButton  />
           <LogoutButton  />
+          {/* <Login/> */}
       </Navbar>
     )
   }
