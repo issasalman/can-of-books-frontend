@@ -5,6 +5,8 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import BookFormModal from "./BookFormModal";
 import UpdateBookModal from "./UpdateBookModal";
+import { withAuth0 } from "@auth0/auth0-react";
+
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -82,7 +84,7 @@ class BestBooks extends React.Component {
 
           this.setState({ BooksData: newBooks });
         }
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(() => alert("something!!!! went wrong"));
   };
@@ -99,7 +101,7 @@ class BestBooks extends React.Component {
 
   componentDidMount = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/books`)
+      .get(`${process.env.REACT_APP_API_URL}/books/${this.props.auth0.user.email}`)
       .then((bookResponse) => {
         this.setState({ BooksData: bookResponse.data });
         console.log(this.state.BooksData);
@@ -176,4 +178,5 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);
+

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { withAuth0 } from "@auth0/auth0-react";
 
 export class AddBook extends Component {
 
@@ -22,11 +23,11 @@ export class AddBook extends Component {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Book Title</Form.Label>
+              <Form.Label>Book Description</Form.Label>
               <Form.Control
                 type="text"
                 name="description"
-                placeholder="Enter Cat Description"
+                placeholder="Enter Book Description"
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -38,11 +39,12 @@ export class AddBook extends Component {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Book description</Form.Label>
+              <Form.Label>Book Email</Form.Label>
               <Form.Control
                 type="text"
                 name="email"
                 placeholder="Enter Email"
+                defaultValue={this.props.auth0.user.email}
               />
             </Form.Group>
 
@@ -56,4 +58,4 @@ export class AddBook extends Component {
   }
 }
 
-export default AddBook;
+export default withAuth0(AddBook);
